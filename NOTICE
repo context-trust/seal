@@ -1,0 +1,16 @@
+cøntextTrust Protocol — Smart Contracts
+Copyright 2024-2026 Rodrigo Tenuta Reche and the cøntextTrust Protocol contributors
+
+This product includes software developed by the cøntextTrust Protocol project.
+
+The Solidity smart contracts in this directory (contracts/) are licensed under
+the Apache License, Version 2.0. See the LICENSE file in this directory.
+
+Third-party components (under their own licenses, in contracts/lib/):
+- OpenZeppelin Contracts and Contracts-Upgradeable — MIT
+- Chainlink VRF v2.5 interfaces — MIT
+- Foundry forge-std — MIT / Apache-2.0
+
+NOTE ON SCOPE: the application/SPA code at the repository root (src/, supabase/)
+is product code and is NOT covered by this Apache-2.0 license. See the
+repository-level LICENSE-DECISION.md for the full licensing map.

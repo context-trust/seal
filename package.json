@@ -1,0 +1,56 @@
+{
+  "name": "@contexttrust/seal",
+  "version": "1.4.0",
+  "description": "Implementação de referência do selo cøntextTrust V1.2 — normalização canônica, BLAKE3, composite hash, assinatura Ed25519 e verificação. Código puro: sem rede, sem banco, sem servidor.",
+  "license": "Apache-2.0",
+  "author": "Rodrigo Tenuta Reche and the cøntextTrust Protocol contributors",
+  "homepage": "https://contexttrust.io",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/contexttrust/contexttrust-protocol.git",
+    "directory": "packages/seal"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./spec": "./SPEC.md",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src",
+    "SPEC.md",
+    "README.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "sideEffects": false,
+  "keywords": [
+    "contexttrust",
+    "seal",
+    "provenance",
+    "blake3",
+    "ed25519",
+    "content-authenticity"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@noble/ed25519": "^3.1.0",
+    "@noble/hashes": "^2.2.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "node --test test/*.test.mjs",
+    "prepublishOnly": "npm run build && npm test"
+  }
+}

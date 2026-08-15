@@ -1,0 +1,75 @@
+{
+  "_comment": "Vetores de conformidade do selo cøntextTrust V1.2. São selos REAIS de produção, extraídos da tabela `seals` em 27/jul/2026. Nenhum foi construído para o teste — é por isso que valem. Conteúdo e chaves públicas são públicos por natureza (selos públicos); nenhuma chave privada aparece aqui.",
+  "_spec": "../SPEC.md",
+  "bindingDomain": "cøntextTrust:polygon-mainnet:137",
+  "vectors": [
+    {
+      "nome": "V1.2 — linhagem (2 ancestrais) + mídia + texto com acento, emoji e quebra de linha",
+      "sealId": "47fae2ec68e30636",
+      "version": "1.2.0",
+      "text": "Tem dias que de noite…\nEh phoda¡",
+      "mediaHashes": ["cca6c34f21c09f10475a30e50e63c0f28d5ca825e09dc58c218b0b0b086387a6"],
+      "ancestrySealIds": ["91b7146836f3d0f0", "907336f6042d1503"],
+      "pubkey": "bb87d5ecda462eb2f93360ef7536bf3bdd30027dc730b8cb67c6e4b638bab968",
+      "contentHash": "61b6e5c103c7e1b26c159cb5a88ef4cdb91e4e0eac4fdcdd74ced1c85c2be533",
+      "compositeHash": "47fae2ec68e306365c0518d53034adf982181272f3152fa24471dda76d0884c2",
+      "signature": "fc963e1430a4b8351ba447037384d52eb5e184fdea1c9029a3c25cf9adf350b60cf5949d35f6e999bde7281080be129475f2b9e5347ec718847f0a23f2e90d01"
+    },
+    {
+      "nome": "V1.2 — linhagem LONGA (9 ancestrais, testa a ordenação canônica)",
+      "sealId": "6153335d9e747ed1",
+      "version": "1.2.0",
+      "text": "hgfhgfhfhgfh",
+      "mediaHashes": ["d07dd5eff1e120d5969b988ea3ff45a35131b666c8d6537d5a03982ce975521f"],
+      "ancestrySealIds": [
+        "5f4653daad26d8df", "0cac921934787887", "8651d35e93b5c9e5",
+        "b957c28077551b56", "f57656a1f14862f1", "2459c7e40afc4470",
+        "d0f4d801b9fcde73", "70a2ec9de3de42d6", "f4af044f862a6a56"
+      ],
+      "pubkey": "e0a7e624dd0da3d802e54ba20c94b056236f530325a7e7b2d12493053f1c1cae",
+      "contentHash": "4347e1f8dc60e7558ce505f1af2b1fd4127ed293a6273972a3c3f13fa619d284",
+      "compositeHash": "6153335d9e747ed13a1ed96827b93141090fd74745dfb0e760eb1857d7a0d928",
+      "signature": "f4733781a84c704f31ecbb2ce71315f7c1782ffb6bc96598cf2278c3034438f0292a826429b677862aaeee660ea4da6067a0205281cebbc5d5ef58ab595ac10c"
+    },
+    {
+      "nome": "V1.2 — linhagem (8 ancestrais) + texto longo com travessão",
+      "sealId": "572415a330d4dd51",
+      "version": "1.2.0",
+      "text": "Comunicado oficial — selado antes de publicar. Vídeo apurado, com prova de autoria, data e cadeia de custódia.",
+      "mediaHashes": ["ff463d276a5c368ac4f8025bc451eca08c5debd3630b777e7657db333d1326a3"],
+      "ancestrySealIds": [
+        "5f4653daad26d8df", "0cac921934787887", "8651d35e93b5c9e5",
+        "b957c28077551b56", "f57656a1f14862f1", "2459c7e40afc4470",
+        "d0f4d801b9fcde73", "f4af044f862a6a56"
+      ],
+      "pubkey": "a1a5854dd05bfff2f378dc83ceaf03a744f1df60e6d687ecc9f2fd31ba3a9f59",
+      "contentHash": "9a4de3f7d9670fea9a943f389e0930d5c64f5efe5b1e58ac2741909649fccce3",
+      "compositeHash": "572415a330d4dd51f52f7a17cdeba60163f65d050581470dedb1354a401d19d0",
+      "signature": "e6acdf2082565e8c260a52b406a22dbd9f0e2bfaec0ad75feeee534452f73e2ef74c7a80763b350a6afb1c5e8f35c213c38d3708edff31faf48d471ac32fdd02"
+    },
+    {
+      "nome": "V1.1 — sem linhagem (compositeHash tem que bater sem o segmento ancestry)",
+      "sealId": "066c0b05de8743bc",
+      "version": "1.2.0",
+      "text": "teste",
+      "mediaHashes": ["2c818525bb3bcf16855855e43385a2d5c146f8142fbbbc6b245b84e2936abc71"],
+      "ancestrySealIds": null,
+      "pubkey": "d0b2fe244ea213b676a28965a094a57b456147f3318f2676d13f4467528317db",
+      "contentHash": "93322deaa9901ec71145f9f98579b8b22d575c2b8ee3a43d40b4cbd10bff97e7",
+      "compositeHash": "066c0b05de8743bcd30cbbea6d35981f6dcb872dc62b768e09570efc9fc5b88f",
+      "signature": "5cee38d1ca40d573d027675ce003cd7f70780cd68ac18c663378df2cd4120c98893b07f89f9463d4e974612d691ff9501d64917a392afe29a21fc1ce02d1b20f"
+    },
+    {
+      "nome": "V1.1 — só texto, sem mídia (mediaHashes vazio)",
+      "sealId": "71c40464d83e6d4c",
+      "version": "1.2.0",
+      "text": "Teste E2E — modal de consentimento jurídico 23/07",
+      "mediaHashes": [],
+      "ancestrySealIds": null,
+      "pubkey": "61cc524874b7c5305d86de4e9f0e733dd0ea11d41c272336d286b68572896dfa",
+      "contentHash": "ac14536ca4c6f784fa4d30b4d8d8f1f334212c88c4a9f81ab0af660070cef239",
+      "compositeHash": "71c40464d83e6d4c7abef30fac5ecd879cad53301a1e12513b68edd2e3c95137",
+      "signature": "87638dd2ee839aa3ff46639c536732db629651789f56f0bc6dc3719ecd3ebaff828ec4039797dbc062c00ec0bcdd5d24de4e9aa5ff7ec0e6dc60f689f675fd05"
+    }
+  ]
+}
