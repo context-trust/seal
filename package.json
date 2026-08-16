@@ -1,14 +1,13 @@
 {
   "name": "@contexttrust/seal",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Implementação de referência do selo cøntextTrust V1.2 — normalização canônica, BLAKE3, composite hash, assinatura Ed25519 e verificação. Código puro: sem rede, sem banco, sem servidor.",
   "license": "Apache-2.0",
   "author": "Rodrigo Tenuta Reche and the cøntextTrust Protocol contributors",
-  "homepage": "https://contexttrust.io",
+  "homepage": "https://github.com/context-trust/seal#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/contexttrust/contexttrust-protocol.git",
-    "directory": "packages/seal"
+    "url": "git+https://github.com/context-trust/seal.git"
   },
   "type": "module",
   "main": "./dist/index.js",
@@ -46,11 +45,14 @@
     "@noble/hashes": "^2.2.0"
   },
   "devDependencies": {
-    "typescript": "^5.7.2"
+    "typescript": "^5.6.0"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "node --test test/*.test.mjs",
     "prepublishOnly": "npm run build && npm test"
+  },
+  "bugs": {
+    "url": "https://github.com/context-trust/seal/issues"
   }
 }
