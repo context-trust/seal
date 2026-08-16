@@ -127,6 +127,13 @@ Implementações **DEVERIAM** distinguir "não calculado" de "calculado e vazio"
 usando `null` em vez de string vazia, para o auditor não interpretar campo vazio
 como falha de captura.
 
+⚠️ A recomendação vale para quem **emite**, e só para selos novos. Um verificador
+**NÃO PODE** trocar `""` por `null` ao devolver um envelope já assinado: o
+`compositeHash` é calculado sobre o JSON canônico, então reescrever qualquer
+campo na saída faria a prova deixar de fechar para quem recomputasse a partir
+dela. O campo vazio de um selo antigo é o que foi assinado, e permanece assim
+para sempre. É a diferença entre corrigir o emissor e adulterar o registro.
+
 ---
 
 ## 5. Assinatura
@@ -332,12 +339,17 @@ consultar o código de origem, reproduziu selos reais byte a byte.
 
 Quem audita o protocolo encontra **quatro numerações diferentes** ao mesmo tempo e, sem esta tabela, a impressão é de contradição. Elas versionam coisas distintas e evoluem em ritmos distintos.
 
-| Número | O que versiona | Onde se lê | Exemplo em 15/ago/2026 |
-|---|---|---|---|
-| **Protocolo** (1.0 / 1.1 / 1.2) | a **fórmula do `compositeHash`** definida nesta SPEC | campo `protocolVersion` na verificação | `1.1` ou `1.2`, conforme o selo tenha linhagem |
-| **Envelope** (`version`) | o **formato do arquivo** de envelope emitido pelo app | campo `version` dentro do envelope | `1.2.0` |
-| **Biblioteca** (npm) | a implementação de referência `@contexttrust/seal` | `package.json` / registro npm | `1.4.0` |
-| **Contrato** | a implementação on-chain de cada contrato | `version()` no contrato | `8.1.0` no ContentRegistry |
+⚠️ A coluna da direita diz **onde ler o número agora**, e não qual ele era no dia em que
+esta seção foi escrita. A primeira versão desta tabela trazia a biblioteca como `1.4.0` e
+envelheceu em dois dias, dentro da seção criada justamente para acabar com confusão de
+número. Número copiado à mão para dentro de documento é defeito com data marcada.
+
+| Número | O que versiona | Onde se lê **agora** |
+|---|---|---|
+| **Protocolo** (1.0 / 1.1 / 1.2) | a **fórmula do `compositeHash`** definida nesta SPEC | campo `protocolVersion` na resposta da verificação; vale `1.1` ou `1.2` conforme o selo tenha linhagem |
+| **Envelope** (`version`) | o **formato do arquivo** de envelope emitido pelo app | campo `version` dentro do próprio envelope |
+| **Biblioteca** (npm) | a implementação de referência `@contexttrust/seal` | `npm view @contexttrust/seal version`, ou `dist-tags.latest` em `https://registry.npmjs.org/@contexttrust/seal` |
+| **Contrato** | a implementação on-chain de cada contrato | `version()` no contrato, lido por `eth_call` (ver `CONTRATOS.md` no espelho público) |
 
 ### 11.1 Por que um envelope `1.2.0` é verificado como protocolo `1.1`
 
