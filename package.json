@@ -1,6 +1,6 @@
 {
   "name": "@contexttrust/seal",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Implementação de referência do selo cøntextTrust V1.2 — normalização canônica, BLAKE3, composite hash, assinatura Ed25519 e verificação. Código puro: sem rede, sem banco, sem servidor.",
   "license": "Apache-2.0",
   "author": "Rodrigo Tenuta Reche and the cøntextTrust Protocol contributors",
