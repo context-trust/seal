@@ -10,7 +10,7 @@ Ele existe por um motivo específico: o protocolo afirma que **a verificação d
 |---|---|
 | `SPEC.md` | especificação **normativa** do selo V1.2: normalização canônica, BLAKE3, hash composto com binding de domínio, assinatura Ed25519, envelope, ordem de verificação, mapa de versões, e o que um selo **não** prova |
 | `src/` | a implementação de referência em TypeScript, sem rede, sem banco e sem servidor |
-| `test/` | vetores sintéticos e a suíte que qualquer pessoa roda para conferir conformidade |
+| `test/` | vetores de conformidade (selos **reais**, ver abaixo) e a suíte que qualquer pessoa roda |
 | `LICENSE` · `NOTICE` | Apache-2.0 |
 
 ## Rodar a conformidade
@@ -23,17 +23,28 @@ npm test
 
 Saída esperada em 15/ago/2026: **24 testes, 24 passando**.
 
+## De onde vêm os vetores de teste
+
+Os cinco vetores em `test/vectors.json` são **selos reais**, extraídos da tabela de produção. Nenhum foi construído para o teste, e é justamente por isso que valem: eles exercitam as fórmulas contra dados que o produto gerou de verdade, com linhagem de 2, 8 e 9 ancestrais, texto com acento, emoji e quebra de linha, e casos com e sem mídia.
+
+Três esclarecimentos que um auditor vai querer, e que preferimos dar antes da pergunta:
+
+- **Todos os cinco pertencem a uma única pessoa, o autor deste repositório, e estão marcados como registros de teste** (`is_test`). Nenhum conteúdo de terceiro aparece aqui.
+- **No produto, a visibilidade deles é privada ou protegida.** Isso significa que `api/verify` não devolve o texto, e este repositório devolve. Não é vazamento nem inconsistência do protocolo: é uma decisão de quem é dono dos cinco selos, tomada para que a conformidade possa ser conferida contra dado real. Se a visibilidade fosse a de outra pessoa, a decisão não seria nossa para tomar.
+- **Nenhuma chave privada aparece.** Cada vetor traz apenas a chave pública, os hashes e a assinatura. A verificação de assinatura é feita com a pública, que é pública por definição.
+
+Uma versão anterior deste README dizia que os vetores eram sintéticos. Estava errado, e a contradição foi apontada por uma auditoria externa em 19/ago/2026. O texto acima é o que os arquivos sempre disseram.
+
 ## O que NÃO está aqui, e por quê
 
-- **Os vetores de selos reais de produção.** A suíte interna também roda contra selos verdadeiros, que carregam nome e conteúdo de pessoas. Publicá-los exporia conteúdo de terceiros para provar uma propriedade técnica, o que seria incoerente com um protocolo de proveniência e privacidade. Os vetores daqui são sintéticos e exercitam as mesmas fórmulas.
-- **Contratos, aplicação e infraestrutura.** Os contratos on-chain são auditáveis de outro jeito, e melhor: estão **verificados no Sourcify e no Polygonscan**, com o código-fonte navegável a partir do endereço.
+- **Contratos, aplicação e infraestrutura.** Os contratos on-chain são auditáveis de outro jeito, e melhor: as implementações estão **verificadas no Sourcify** (seis `exact_match` e dois `match` nos oito contratos publicados), com o código-fonte navegável a partir do endereço. A publicação de todas elas também no Polygonscan está sendo completada; onde os dois divergirem, o Sourcify é a referência.
 
 ## Conferir sem confiar em nós
 
 O pacote publicado é imutável por versão:
 
 ```bash
-npm view @contexttrust/seal@1.4.0 dist.integrity
+npm view @contexttrust/seal@1.4.1 dist.integrity
 ```
 
 Um selo real, verificável por qualquer um, sem cadastro:

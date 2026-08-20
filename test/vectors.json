@@ -1,5 +1,5 @@
 {
-  "_comment": "Vetores de conformidade do selo cøntextTrust V1.2. São selos REAIS de produção, extraídos da tabela `seals` em 27/jul/2026. Nenhum foi construído para o teste — é por isso que valem. Conteúdo e chaves públicas são públicos por natureza (selos públicos); nenhuma chave privada aparece aqui.",
+  "_comment": "Vetores de conformidade do selo cøntextTrust V1.2. São selos REAIS de produção, extraídos da tabela `seals` em 27/jul/2026. Nenhum foi construído para o teste, e é por isso que valem. Os cinco pertencem a uma única pessoa, o autor do repositório, e estão marcados como registros de teste (is_test); nenhum conteúdo de terceiro aparece aqui. No produto a visibilidade deles é privada ou protegida, então api/verify não devolve o texto e este arquivo devolve: é decisão deliberada do dono dos cinco selos, para que a conformidade possa ser conferida contra dado real. Nenhuma chave privada aparece: só chave pública, hashes e assinatura.",
   "_spec": "../SPEC.md",
   "bindingDomain": "cøntextTrust:polygon-mainnet:137",
   "vectors": [
