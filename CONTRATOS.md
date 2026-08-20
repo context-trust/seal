@@ -16,16 +16,26 @@ proxy — é o passo que a maioria pula, e foi onde estava o nosso defeito de 15
 |---|---|---|---|
 | ContentRegistry | `0x70a656FDcf9Cab966a5C9c283563a22f3D813c32` | `0xCb7D14A2573a87390B475F3fdbcbAb577658a183` · **ContentRegistryV3** | `exact_match` |
 | PreservationVault | `0x40F152A25E2B7F0d55Ea5A76C49BCD8E03b28852` | `0x041385b9a136Cf393F3727b1F3082E6dD873bb02` · **PreservationVaultV2** | `match` |
-| HourlyAnchor | `0x1B627fF9d6A341b27bD24207a3F6C8F9E8c1CDE9` | `0xa6D00dbBC96531282E60460F6f37bA2BEc0Cb716` · **HourlyAnchor** | `exact_match` |
+| HourlyAnchor | `0x1B627fF9d6A341b27bD24207a3F6C8F9E8c1CDE9` | `0xA6D00dbbC96531282e60460f6f37bA2beC0Cb716` · **HourlyAnchor** | `exact_match` |
 | MirrorAnchor | `0xD950cDdc624A9C16D6018B8DF95dfE9ED0729e38` | deploy direto, sem proxy | `exact_match` |
-| TrustSealNFT | `0x751D70C3ac2b60A13603f1D61a480edcB82f563e` | `0x22633274DfF0f5D76134BcAbB6d1A62f7456B438` · **TrustSealNFT** | `exact_match` |
-| ValidatorRegistry | `0xeD9941279ce8949abEFE25C18b1E227d2012a63c` | `0x1CDa41848642Eb207D4a98666a4D1066a222c0AB` · **ValidatorRegistry** | `exact_match` |
+| TrustSealNFT | `0x751D70C3ac2b60A13603f1D61a480edcB82f563e` | `0x22633274DFf0f5D76134bcABb6d1A62F7456b438` · **TrustSealNFT** | `exact_match` |
+| ValidatorRegistry | `0xeD9941279ce8949abEFE25C18b1E227d2012a63c` | `0x1Cda41848642eB207d4A98666a4D1066A222C0Ab` · **ValidatorRegistry** | `exact_match` |
 | DisputeResolution | `0x7350B4E6fb59FeC74E736CB9eEFd13aF8800C1F4` | `0xAe0f20DBFD1C363798A8804b3f7A533114CCc710` · **DisputeResolution** | `match` |
-| CTXToken | `0xB39a061E3776D8a0120Aaa3E20A1a1A93766afe1` | `0xa0881952b6dDEB7f938F1289239B981e5816C579` · **CTXToken** | `exact_match` |
+| CTXToken | `0xB39a061E3776D8a0120Aaa3E20A1a1A93766afe1` | `0xa0881952B6ddEB7f938f1289239b981E5816C579` · **CTXToken** | `exact_match` |
 
-Medido em 16 de agosto de 2026. O estado de verificação não regride sozinho, mas a
+Endereços de implementação relidos do slot ERC-1967 em 19 de agosto de 2026; estado de
+verificação medido em 16 de agosto. O estado de verificação não regride sozinho, mas a
 **implementação muda a cada upgrade** — por isso o comando abaixo lê o endereço da
 implementação na hora, em vez de confiar nesta tabela.
+
+> **Correção de 19/ago/2026.** Até esta data, quatro dos endereços de implementação desta
+> tabela (HourlyAnchor, TrustSealNFT, ValidatorRegistry e CTXToken) estavam com o
+> *checksum* EIP-55 errado. Os dígitos hexadecimais sempre foram os certos; o que estava
+> errado era a caixa das letras. O defeito passou despercebido porque **chamada de RPC não
+> valida checksum**: todos os `curl` desta página funcionavam. Quem valida é ferramenta que
+> exige EIP-55, e foi o Sourcify recusando um deles com `Invalid address` que expôs o
+> problema. Os oito endereços de proxy nunca tiveram esse defeito. Se você copiou algum
+> endereço de implementação daqui antes de 19/ago, recopie.
 
 ### `exact_match` e `match` não são a mesma coisa
 
