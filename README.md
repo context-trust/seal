@@ -37,7 +37,7 @@ Uma versão anterior deste README dizia que os vetores eram sintéticos. Estava 
 
 ## O que NÃO está aqui, e por quê
 
-- **Contratos, aplicação e infraestrutura.** Os contratos on-chain são auditáveis de outro jeito, e melhor: as implementações estão **verificadas no Sourcify** (seis `exact_match` e dois `match` nos oito contratos publicados), com o código-fonte navegável a partir do endereço. A publicação de todas elas também no Polygonscan está sendo completada; onde os dois divergirem, o Sourcify é a referência.
+- **Contratos, aplicação e infraestrutura.** Os contratos on-chain são auditáveis de outro jeito, e melhor: as oito implementações estão **verificadas no Sourcify** (seis `exact_match` e dois `match`) **e também no Polygonscan**, com o código-fonte navegável a partir do endereço. As três últimas foram publicadas no Polygonscan em 19/ago/2026, depois que uma auditoria externa apontou que a frase anterior era ampla demais. Onde os dois serviços divergirem, o Sourcify é a referência. Endereços, comandos e a história dessa correção estão em [`CONTRATOS.md`](./CONTRATOS.md).
 
 ## Conferir sem confiar em nós
 
