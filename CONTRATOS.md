@@ -35,6 +35,47 @@ diferença é o hash de metadados embutido no fim do bytecode: em `match` ele n�
 idêntico, o que acontece quando o artefato foi compilado noutro ambiente. Dizemos os dois
 nomes em vez de arredondar para o mais bonito.
 
+### O cabeçalho do ContentRegistryV3 diz "V2", e isso é um rótulo envelhecido
+
+Quem abrir o fonte verificado da implementação `0xCb7D14A2…` vai ler, no topo,
+`@title ContentRegistryV2 — V7.5.0` num arquivo chamado `ContentRegistryV3.sol` cujo
+contrato se chama `ContentRegistryV3` e cujo corpo já traz a V8.0.0, com `REGISTRAR_ROLE`
+separado do `ANCHOR_ROLE`. Uma auditoria externa apontou a mistura em 19/ago/2026, e ela
+está certa: o comentário não foi atualizado quando o contrato foi.
+
+O que envelheceu é o rótulo, não o código. Nome do contrato, papéis e comportamento
+sempre foram os da V8.0.0, e você confere isso **chamando o contrato**, não lendo o
+comentário. A V7.5.0 tinha um papel só; a V8.0.0 separou dois:
+
+```bash
+# REGISTRAR_ROLE() — seletor 0xf68e9553 — só existe a partir da V8.0.0
+curl -s https://polygon-bor-rpc.publicnode.com -X POST -H 'Content-Type: application/json' \
+  -d '{"jsonrpc":"2.0","id":1,"method":"eth_call","params":[{"to":"0x70a656FDcf9Cab966a5C9c283563a22f3D813c32","data":"0xf68e9553"},"latest"]}'
+
+# ANCHOR_ROLE() — seletor 0xfd5f48c5 — vem desde antes
+curl -s https://polygon-bor-rpc.publicnode.com -X POST -H 'Content-Type: application/json' \
+  -d '{"jsonrpc":"2.0","id":1,"method":"eth_call","params":[{"to":"0x70a656FDcf9Cab966a5C9c283563a22f3D813c32","data":"0xfd5f48c5"},"latest"]}'
+```
+
+Medido em 19/ago/2026, os dois respondem e são valores distintos:
+
+| Papel | Valor |
+|---|---|
+| `REGISTRAR_ROLE` | `0xedcc084d3dcd65a1f7f23c65c46722faca6953d28e43150a467cf43e5c309238` |
+| `ANCHOR_ROLE` | `0x08b5ce2e3163e37059f807346dad4dd6235ed44f92dced22992662cb45706362` |
+| `PAUSER_ROLE` | `0x65d7a28e3265b37a6474929f336521b332c1681b933f6cb9f3376673440d862a` |
+
+Vale rodar o controle negativo junto: chamar um seletor de função que não existe devolve
+`execution reverted`. Sem isso, uma resposta vazia poderia ser confundida com sucesso.
+
+Não dá para corrigir no que já está publicado. **Cabeçalho de contrato implantado não tem
+"depois"**: o texto vai junto com o bytecode para sempre. Quem corrige é a próxima
+implementação, cujo fonte já leva o cabeçalho certo. Consequência que preferimos dizer a
+deixar alguém descobrir: como o *metadata hash* do Solidity cobre comentários, o arquivo
+corrigido no repositório privado **não recompila byte a byte** para o que está em
+`0xCb7D14A2…`. O runtime bytecode não mudou; o fonte de registro do que está no ar
+continua sendo o verificado no Sourcify, e é ele que a tabela acima aponta.
+
 ## Como reproduzir, um comando por vez
 
 **1. O endereço existe e tem código.** Zero aqui significa endereço morto, e é o primeiro
