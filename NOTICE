@@ -1,16 +1,25 @@
-cøntextTrust Protocol — Smart Contracts
+cøntextTrust Protocol — @contexttrust/seal
 Copyright 2024-2026 Rodrigo Tenuta Reche and the cøntextTrust Protocol contributors
 
-This product includes software developed by the cøntextTrust Protocol project.
+This product is the reference implementation of the cøntextTrust seal
+(canonical normalization, BLAKE3 content hashing, composite hash with domain
+binding, Ed25519 signatures and verification), together with its normative
+specification (SPEC.md). Everything in this package — src/, dist/, SPEC.md
+and the conformance suite — is licensed under the Apache License, Version 2.0.
+See the LICENSE file.
 
-The Solidity smart contracts in this directory (contracts/) are licensed under
-the Apache License, Version 2.0. See the LICENSE file in this directory.
+Runtime third-party dependencies (each under its own license):
+- @noble/ed25519 — MIT — (c) Paul Miller, https://paulmillr.com
+- @noble/hashes — MIT — (c) Paul Miller, https://paulmillr.com
 
-Third-party components (under their own licenses, in contracts/lib/):
-- OpenZeppelin Contracts and Contracts-Upgradeable — MIT
-- Chainlink VRF v2.5 interfaces — MIT
-- Foundry forge-std — MIT / Apache-2.0
+The on-chain smart contracts referenced by CONTRATOS.md are NOT contained in
+this package. They are published and verified on Sourcify and Polygonscan;
+their addresses and reproduction commands live in CONTRATOS.md.
 
-NOTE ON SCOPE: the application/SPA code at the repository root (src/, supabase/)
-is product code and is NOT covered by this Apache-2.0 license. See the
-repository-level LICENSE-DECISION.md for the full licensing map.
+An earlier NOTICE shipped with versions 1.2.0 through 1.4.2 of this package
+described the Solidity contracts directory of a different repository, listing
+third parties (OpenZeppelin, Chainlink, forge-std) that are not dependencies
+of this library, and a scope note that did not apply here. Published tarballs
+are immutable, so those copies remain as they are; this file is the corrected
+statement, and it ships from the next release onward. Flagged by external
+audit on 21/aug/2026.

@@ -144,6 +144,54 @@ curl -s https://polygon-bor-rpc.publicnode.com -X POST -H 'Content-Type: applica
   -d '{"jsonrpc":"2.0","id":1,"method":"eth_call","params":[{"to":"0xD950cDdc624A9C16D6018B8DF95dfE9ED0729e38","data":"0x73e2144f"},"latest"]}'
 ```
 
+## Quem detém cada papel hoje — porque "não enumerável" não pode virar "não conferível"
+
+Uma auditoria externa (21/ago/2026) apontou, com razão: os papéis do AccessControl **não
+são enumeráveis** on-chain (`getRoleMemberCount` reverte nestes contratos), então de fora
+ninguém *lista* os detentores. A resposta certa não é pedir confiança: é **publicar a lista
+e o comando que confere cada linha**. `hasRole` responde para qualquer endereço; o que
+falta ao público é saber *quais* endereços perguntar. Aqui estão.
+
+Medido em 20/ago/2026, por `RoleGranted`/`RoleRevoked` do bloco zero ao topo (ordenados por
+bloco **e** `logIndex`) e cada linha confirmada por `hasRole` em três RPCs:
+
+| Conta | Papéis hoje |
+|---|---|
+| `0xcf062C6A1d621090542B0344C4E47aB6663e45e7` (hardware wallet, admin) | `DEFAULT_ADMIN_ROLE`, `UPGRADER_ROLE` e `PAUSER_ROLE` nos oito contratos · `MINTER_ROLE` no TrustSealNFT e no CTXToken · `ADMIN_ROLE` no MirrorAnchor |
+| `0x15845955DeCBC5374Da5AEE2Fc8C8b5ff291876d` (operação do protocolo) | `ANCHOR_ROLE` e `REGISTRAR_ROLE` no ContentRegistry · `OPERATOR_ROLE` no HourlyAnchor |
+| `0x903EC33cAa5915186EEAA634fF9cD972b2D013a3` (operação da trustLayers) | `REGISTRAR_ROLE` no ContentRegistry · `VAULT_PINNER_ROLE` no PreservationVault |
+| `0x00B7DA72007736Cb2757C374a074b82867C8f9bB` (espelho pós-quântico) | `ANCHOR_ROLE` no MirrorAnchor |
+
+```bash
+# conferir qualquer linha (exemplo: DEFAULT_ADMIN do ContentRegistry):
+curl -s https://polygon-bor-rpc.publicnode.com -X POST -H 'Content-Type: application/json' \
+  -d '{"jsonrpc":"2.0","id":1,"method":"eth_call","params":[{"to":"0x70a656FDcf9Cab966a5C9c283563a22f3D813c32","data":"0x91d148540000000000000000000000000000000000000000000000000000000000000000000000000000000000000000cf062c6a1d621090542b0344c4e47ab6663e45e7"},"latest"]}'
+# 0x…01 = true. O seletor 0x91d14854 é hasRole(bytes32,address).
+```
+
+O que esta tabela diz, sem rodeio: **hoje uma única conta externa controla administração,
+upgrade e pausa dos oito contratos.** A separação operacional (quem ancora, registra e pina
+são contas distintas da que administra) está feita; a do topo, ainda não. A migração para um
+multisig 2-de-3 com timelock de 48 h na frente dos upgrades está planejada e com o
+procedimento testado; quando executada, esta tabela muda e será atualizada com a mesma
+disciplina de medição. Até lá, esta linha existe para que ninguém precise descobrir isso
+sozinho — nem concluir que tentamos esconder.
+
+## Endereços abandonados — não usar, não enviar fundos, não conceder papéis
+
+Dois contratos da fase inicial de desenvolvimento existem on-chain e **não fazem parte da
+governança atual**. Contrato implantado não se apaga (o EIP-6780 restringiu `selfdestruct` à
+transação de criação), então o que se faz é declarar:
+
+| Endereço | O que é | Estado medido (20/ago/2026) |
+|---|---|---|
+| `0x79CE3BD1bb2eA771109BaBC5c44B71D12eB848C1` | um `TimelockController` (48 h) da era de deploy | **sem papel em nenhum dos oito contratos**, sem fundos, sem operação pendente; controlado por uma hotwallet de deploy aposentada |
+| `0x9D84641341eDA005f53450EdC01F43d08bbB1c71` | um Safe de **1 dono e limiar 1** | sem fundos e sem papéis; **não é multisig** e nunca deve ser citado como tal |
+
+Se qualquer documento nosso, antigo ou futuro, apresentar um desses endereços como parte da
+governança, está errado e esta seção prevalece. O timelock da governança definitiva será um
+contrato **novo**, publicado aqui quando existir.
+
 ## O que estes contratos não provam
 
 Publicar endereço e código não prova que a rede está **em operação**. As leituras da tabela
